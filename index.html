@@ -10,21 +10,34 @@
 <title>KM Uber</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+
   :root {
-    --bg: #0f0f0f; --surface: #1a1a1a; --surface2: #242424;
-    --border: rgba(255,255,255,0.08); --text: #f0f0f0; --muted: #888;
-    --accent: #1DB954; --accent-dim: rgba(29,185,84,0.12);
-    --red: #E24B4A; --red-dim: rgba(226,75,74,0.12);
-    --amber: #EF9F27; --amber-dim: rgba(239,159,39,0.12);
-    --radius: 16px; --radius-sm: 10px;
+    --bg: #0f0f0f;
+    --surface: #1a1a1a;
+    --surface2: #242424;
+    --border: rgba(255,255,255,0.08);
+    --text: #f0f0f0;
+    --muted: #888;
+    --accent: #1DB954;
+    --accent-dim: rgba(29,185,84,0.12);
+    --red: #E24B4A;
+    --amber: #EF9F27;
+    --radius: 16px;
+    --radius-sm: 10px;
     --safe-top: env(safe-area-inset-top, 20px);
     --safe-bottom: env(safe-area-inset-bottom, 20px);
   }
-  html, body { height: 100%; background: var(--bg); }
+
+  html, body {
+    height: 100%;
+    background: var(--bg);
+  }
+
   body {
     color: var(--text);
     font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-    max-width: 430px; margin: 0 auto;
+    max-width: 430px;
+    margin: 0 auto;
     padding-top: var(--safe-top);
     padding-bottom: calc(var(--safe-bottom) + 20px);
     overflow-x: hidden;
@@ -32,240 +45,294 @@
 
   /* Header */
   .header {
-    padding: 14px 20px 12px;
-    display: flex; align-items: center; justify-content: space-between;
+    padding: 16px 20px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     border-bottom: 0.5px solid var(--border);
   }
-  .header-logo { display: flex; align-items: center; gap: 10px; }
-  .logo-dot { width: 32px; height: 32px; background: var(--accent); border-radius: 9px; display: flex; align-items: center; justify-content: center; font-size: 17px; }
-  .header h1 { font-size: 18px; font-weight: 700; letter-spacing: -0.4px; }
-  .header-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
-  .header-date { font-size: 12px; color: var(--muted); text-align: right; }
+  .header-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .logo-dot {
+    width: 32px;
+    height: 32px;
+    background: var(--accent);
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+  }
+  .header h1 {
+    font-size: 18px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+  }
+  .header-sub {
+    font-size: 11px;
+    color: var(--muted);
+    margin-top: 1px;
+  }
+  .header-date {
+    font-size: 12px;
+    color: var(--muted);
+    text-align: right;
+  }
 
   /* Stats */
-  .stats-bar { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; padding: 12px 20px; }
-  .stat-card { background: var(--surface); border-radius: var(--radius-sm); padding: 10px 12px; border: 0.5px solid var(--border); }
-  .stat-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 3px; }
-  .stat-value { font-size: 18px; font-weight: 700; letter-spacing: -0.5px; line-height: 1; }
+  .stats-bar {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    padding: 14px 20px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    padding: 11px 12px;
+    border: 0.5px solid var(--border);
+  }
+  .stat-label {
+    font-size: 10px;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.4px;
+    margin-bottom: 4px;
+  }
+  .stat-value {
+    font-size: 19px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    line-height: 1;
+  }
   .stat-value.green { color: var(--accent); }
-  .stat-unit { font-size: 10px; color: var(--muted); font-weight: 400; }
+  .stat-unit { font-size: 11px; color: var(--muted); font-weight: 400; }
 
-  /* GPS Section */
-  .gps-section { padding: 0 20px 14px; }
-  .section-title { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 9px; text-transform: uppercase; letter-spacing: 0.6px; }
-
-  .gps-card {
+  /* Add form */
+  .add-section { padding: 0 20px 14px; }
+  .section-title {
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 600;
+    margin-bottom: 9px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+  }
+  .form-card {
     background: var(--surface);
     border-radius: var(--radius);
     border: 0.5px solid var(--border);
-    padding: 20px;
-    text-align: center;
-    transition: border-color 0.3s;
+    padding: 14px;
   }
-  .gps-card.active { border-color: var(--accent); background: rgba(29,185,84,0.04); }
-  .gps-card.paused { border-color: var(--amber); background: rgba(239,159,39,0.04); }
-
-  .gps-km {
-    font-size: 64px;
-    font-weight: 800;
-    letter-spacing: -3px;
-    line-height: 1;
-    color: var(--text);
-    transition: color 0.3s;
-    font-variant-numeric: tabular-nums;
+  .quick-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 7px;
+    margin-bottom: 12px;
   }
-  .gps-card.active .gps-km { color: var(--accent); }
-  .gps-km-unit { font-size: 20px; font-weight: 400; color: var(--muted); letter-spacing: 0; margin-left: 4px; }
-
-  .gps-meta {
-    display: flex; justify-content: center; gap: 20px;
-    margin: 12px 0 20px;
-  }
-  .gps-meta-item { text-align: center; }
-  .gps-meta-label { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.4px; margin-bottom: 2px; }
-  .gps-meta-value { font-size: 15px; font-weight: 600; color: var(--text); }
-
-  .gps-status {
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    font-size: 12px; color: var(--muted); margin-bottom: 18px;
-  }
-  .gps-dot {
-    width: 7px; height: 7px; border-radius: 50%; background: var(--muted);
-    transition: background 0.3s;
-  }
-  .gps-dot.active { background: var(--accent); animation: pulse 1.5s infinite; }
-  .gps-dot.paused { background: var(--amber); }
-  .gps-dot.error { background: var(--red); }
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(0.8); }
-  }
-
-  /* Buttons */
-  .btn-start {
-    width: 100%; background: var(--accent); color: #000;
-    border: none; border-radius: var(--radius-sm);
-    padding: 16px; font-size: 16px; font-weight: 700;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    letter-spacing: -0.2px; transition: opacity 0.15s;
-  }
-  .btn-start:active { opacity: 0.75; transform: scale(0.98); }
-
-  .btn-stop {
-    width: 100%; background: var(--red); color: #fff;
-    border: none; border-radius: var(--radius-sm);
-    padding: 16px; font-size: 16px; font-weight: 700;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
-    transition: opacity 0.15s;
-  }
-  .btn-stop:active { opacity: 0.75; transform: scale(0.98); }
-
-  .btn-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .btn-pause {
-    background: var(--amber-dim); color: var(--amber);
-    border: 0.5px solid rgba(239,159,39,0.3); border-radius: var(--radius-sm);
-    padding: 14px; font-size: 14px; font-weight: 600;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
-  .btn-pause:active { opacity: 0.7; }
-  .btn-resume {
-    background: var(--accent-dim); color: var(--accent);
-    border: 0.5px solid rgba(29,185,84,0.3); border-radius: var(--radius-sm);
-    padding: 14px; font-size: 14px; font-weight: 600;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-  }
-  .btn-resume:active { opacity: 0.7; }
-
-  /* Screen wake warning */
-  .wake-warning {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--amber-dim);
-    border: 0.5px solid rgba(239,159,39,0.25);
-    border-radius: var(--radius-sm);
-    padding: 10px 12px; margin-top: 10px;
-    font-size: 12px; color: var(--amber); line-height: 1.4;
-  }
-
-  /* Separator */
-  .separator { height: 0.5px; background: var(--border); margin: 0 20px 14px; }
-
-  /* Manual add */
-  .manual-section { padding: 0 20px 14px; }
-  .form-card { background: var(--surface); border-radius: var(--radius); border: 0.5px solid var(--border); padding: 14px; }
-  .quick-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 7px; margin-bottom: 12px; }
   .quick-btn {
-    background: var(--surface2); border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm); padding: 9px 4px;
-    color: var(--text); font-size: 13px; font-weight: 500;
-    font-family: inherit; cursor: pointer; text-align: center;
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 9px 4px;
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: center;
+    transition: background 0.1s;
   }
   .quick-btn:active { background: var(--accent-dim); color: var(--accent); }
+
   .form-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .form-group { flex: 1; }
   .form-label { font-size: 10px; color: var(--muted); display: block; margin-bottom: 4px; font-weight: 600; letter-spacing: 0.3px; text-transform: uppercase; }
   .form-input {
-    width: 100%; background: var(--surface2); border: 0.5px solid var(--border);
-    border-radius: var(--radius-sm); padding: 10px 11px;
-    font-size: 16px; color: var(--text); font-family: inherit;
-    outline: none; -webkit-appearance: none; appearance: none;
+    width: 100%;
+    background: var(--surface2);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 10px 11px;
+    font-size: 16px;
+    color: var(--text);
+    font-family: inherit;
+    outline: none;
+    -webkit-appearance: none;
+    appearance: none;
   }
   .form-input:focus { border-color: var(--accent); }
   .form-input::placeholder { color: #444; }
+
+  /* Custom date input color fix for dark mode */
   input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.6); }
+
   .btn-add {
-    width: 100%; background: var(--surface2); color: var(--text);
-    border: 0.5px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px; font-size: 14px; font-weight: 600;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 7px;
+    width: 100%;
+    background: var(--accent);
+    color: #000;
+    border: none;
+    border-radius: var(--radius-sm);
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
     margin-top: 6px;
+    letter-spacing: -0.2px;
   }
-  .btn-add:active { opacity: 0.7; }
+  .btn-add:active { opacity: 0.75; transform: scale(0.98); }
+
+  /* Separator */
+  .separator { height: 0.5px; background: var(--border); margin: 0 20px 14px; }
 
   /* Export */
   .export-section { padding: 0 20px 14px; }
   .btn-export {
-    width: 100%; background: var(--surface); color: var(--text);
-    border: 0.5px solid var(--border); border-radius: var(--radius-sm);
-    padding: 12px; font-size: 14px; font-weight: 500;
-    font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%;
+    background: var(--surface);
+    color: var(--text);
+    border: 0.5px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
   }
   .btn-export:active { opacity: 0.6; }
+  .btn-export-icon { font-size: 16px; }
 
   /* List */
   .list-section { padding: 0 20px; }
-  .list-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
-  .btn-clear { font-size: 12px; color: var(--red); background: none; border: none; font-family: inherit; cursor: pointer; }
+  .list-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  .btn-clear {
+    font-size: 12px;
+    color: var(--red);
+    background: none;
+    border: none;
+    font-family: inherit;
+    cursor: pointer;
+    padding: 4px 0;
+  }
 
   .entry-item {
-    background: var(--surface); border-radius: var(--radius-sm);
-    border: 0.5px solid var(--border); padding: 11px 14px;
-    margin-bottom: 7px; display: flex; align-items: center; gap: 10px;
+    background: var(--surface);
+    border-radius: var(--radius-sm);
+    border: 0.5px solid var(--border);
+    padding: 12px 14px;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
-  .entry-item.gps-entry { border-left: 2px solid var(--accent); }
-  .entry-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--accent-dim); display: flex; align-items: center; justify-content: center; font-size: 15px; flex-shrink: 0; }
-  .entry-icon.manual { background: var(--surface2); }
+  .entry-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background: var(--accent-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
   .entry-left { flex: 1; min-width: 0; }
-  .entry-note { font-size: 14px; font-weight: 500; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .entry-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .entry-note {
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .entry-date { font-size: 11px; color: var(--muted); margin-top: 2px; }
   .entry-right { text-align: right; flex-shrink: 0; }
   .entry-km { font-size: 17px; font-weight: 700; color: var(--accent); letter-spacing: -0.3px; }
   .entry-km-unit { font-size: 10px; color: var(--muted); }
-  .entry-del { background: none; border: none; color: #444; font-size: 20px; cursor: pointer; padding: 0; line-height: 1; flex-shrink: 0; }
+  .entry-del {
+    background: none;
+    border: none;
+    color: #444;
+    font-size: 20px;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+    flex-shrink: 0;
+  }
   .entry-del:active { color: var(--red); }
 
-  .empty-state { text-align: center; padding: 40px 0; color: var(--muted); font-size: 14px; }
+  .empty-state {
+    text-align: center;
+    padding: 40px 0;
+    color: var(--muted);
+    font-size: 14px;
+  }
+  .empty-icon { font-size: 44px; margin-bottom: 10px; opacity: 0.25; }
 
-  /* Confirm save modal */
-  .modal-overlay {
-    position: fixed; inset: 0; background: rgba(0,0,0,0.75);
-    display: flex; align-items: flex-end; z-index: 200;
-    padding-bottom: var(--safe-bottom);
+  /* Install banner */
+  .install-banner {
+    margin: 0 20px 14px;
+    background: rgba(29,185,84,0.08);
+    border: 0.5px solid rgba(29,185,84,0.25);
+    border-radius: var(--radius-sm);
+    padding: 11px 14px;
+    font-size: 12px;
+    color: #9de8b8;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    line-height: 1.5;
   }
-  .modal-overlay.hidden { display: none; }
-  .modal {
-    width: 100%; max-width: 430px; margin: 0 auto;
-    background: var(--surface); border-radius: var(--radius) var(--radius) 0 0;
-    padding: 24px 20px; border-top: 0.5px solid var(--border);
+  .install-banner-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .install-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: #9de8b8;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    flex-shrink: 0;
   }
-  .modal-title { font-size: 18px; font-weight: 700; margin-bottom: 6px; letter-spacing: -0.3px; }
-  .modal-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
-  .modal-km { font-size: 48px; font-weight: 800; color: var(--accent); letter-spacing: -2px; text-align: center; margin: 16px 0; }
-  .modal-km-unit { font-size: 18px; font-weight: 400; color: var(--muted); }
-  .modal-input-row { margin-bottom: 14px; }
-  .modal-btns { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-  .btn-modal-cancel { background: var(--surface2); color: var(--muted); border: 0.5px solid var(--border); border-radius: var(--radius-sm); padding: 14px; font-size: 15px; font-weight: 600; font-family: inherit; cursor: pointer; }
-  .btn-modal-save { background: var(--accent); color: #000; border: none; border-radius: var(--radius-sm); padding: 14px; font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer; }
 
   /* Toast */
   .toast {
-    position: fixed; bottom: calc(var(--safe-bottom) + 20px); left: 50%;
+    position: fixed;
+    bottom: calc(var(--safe-bottom) + 20px);
+    left: 50%;
     transform: translateX(-50%) translateY(80px);
-    background: var(--surface); color: var(--text); border: 0.5px solid var(--border);
-    padding: 10px 18px; border-radius: 20px; font-size: 13px; font-weight: 500;
+    background: var(--surface);
+    color: var(--text);
+    border: 0.5px solid var(--border);
+    padding: 10px 18px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 500;
     transition: transform 0.28s cubic-bezier(0.34,1.56,0.64,1);
-    pointer-events: none; white-space: nowrap; z-index: 100;
+    pointer-events: none;
+    white-space: nowrap;
+    z-index: 100;
   }
   .toast.show { transform: translateX(-50%) translateY(0); }
   .toast.green { background: var(--accent); color: #000; border-color: var(--accent); }
   .toast.red { background: var(--red); color: #fff; border-color: var(--red); }
-  .toast.amber { background: var(--amber); color: #000; border-color: var(--amber); }
-
-  /* Collapsible manual section */
-  .collapse-btn {
-    width: 100%; background: none; border: none; color: var(--muted);
-    font-size: 12px; font-family: inherit; cursor: pointer;
-    display: flex; align-items: center; justify-content: center; gap: 6px;
-    padding: 8px 0 14px;
-  }
-  .collapse-btn:active { opacity: 0.6; }
-  .collapsible { overflow: hidden; transition: max-height 0.3s ease; max-height: 0; }
-  .collapsible.open { max-height: 400px; }
 </style>
 </head>
 <body>
@@ -275,13 +342,19 @@
     <div class="logo-dot">🚗</div>
     <div>
       <h1>KM Uber</h1>
-      <div class="header-sub" id="headerSub">Prêt à démarrer</div>
+      <div class="header-sub">Suivi kilométrique</div>
     </div>
   </div>
   <div class="header-date" id="headerDate"></div>
 </div>
 
-<!-- Stats -->
+<!-- Install banner (shown once) -->
+<div class="install-banner" id="installBanner" style="display:none">
+  <span class="install-banner-icon">📲</span>
+  <span>Ajouter à l'écran d'accueil : appuie sur <strong>Partager</strong> → <strong>"Sur l'écran d'accueil"</strong></span>
+  <button class="install-close" onclick="dismissBanner()">×</button>
+</div>
+
 <div class="stats-bar">
   <div class="stat-card">
     <div class="stat-label">Aujourd'hui</div>
@@ -297,95 +370,45 @@
   </div>
 </div>
 
-<!-- GPS Tracker -->
-<div class="gps-section">
-  <p class="section-title">Trajet GPS</p>
-  <div class="gps-card" id="gpsCard">
-    <div class="gps-km" id="gpsKm">0.0<span class="gps-km-unit">km</span></div>
-    <div class="gps-meta">
-      <div class="gps-meta-item">
-        <div class="gps-meta-label">Durée</div>
-        <div class="gps-meta-value" id="gpsDuration">--:--</div>
-      </div>
-      <div class="gps-meta-item">
-        <div class="gps-meta-label">Vitesse</div>
-        <div class="gps-meta-value" id="gpsSpeed">-- km/h</div>
-      </div>
-      <div class="gps-meta-item">
-        <div class="gps-meta-label">Points GPS</div>
-        <div class="gps-meta-value" id="gpsPoints">0</div>
-      </div>
+<div class="add-section">
+  <p class="section-title">Nouveau trajet</p>
+  <div class="form-card">
+    <div class="quick-row">
+      <button class="quick-btn" onclick="quickAdd(5)">+5</button>
+      <button class="quick-btn" onclick="quickAdd(10)">+10</button>
+      <button class="quick-btn" onclick="quickAdd(15)">+15</button>
+      <button class="quick-btn" onclick="quickAdd(20)">+20</button>
     </div>
-    <div class="gps-status">
-      <div class="gps-dot" id="gpsDot"></div>
-      <span id="gpsStatusText">Appuie sur Démarrer</span>
-    </div>
-
-    <!-- Start button -->
-    <div id="btnStart">
-      <button class="btn-start" onclick="startTracking()">
-        ▶ &nbsp;Démarrer le trajet
-      </button>
-    </div>
-
-    <!-- Active buttons -->
-    <div id="btnActive" style="display:none">
-      <div class="btn-row" style="margin-bottom:8px">
-        <button class="btn-pause" id="btnPauseResume" onclick="togglePause()">⏸ Pause</button>
-        <button class="btn-stop" onclick="stopTracking()">⏹ Terminer</button>
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="kmInput">Kilomètres</label>
+        <input type="number" class="form-input" id="kmInput" placeholder="0.0" inputmode="decimal" min="0" step="0.1">
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="dateInput">Date</label>
+        <input type="date" class="form-input" id="dateInput">
       </div>
     </div>
-
-    <div class="wake-warning" id="wakeWarning" style="display:none">
-      ⚠️ Garde l'écran allumé pendant le trajet pour que le GPS continue de fonctionner.
+    <div class="form-row" style="margin-bottom:0">
+      <div class="form-group">
+        <label class="form-label" for="noteInput">Note</label>
+        <input type="text" class="form-input" id="noteInput" placeholder="aéroport, soirée, centre-ville...">
+      </div>
     </div>
+    <button class="btn-add" onclick="addEntry()">
+      ＋ &nbsp;Enregistrer
+    </button>
   </div>
 </div>
 
 <div class="separator"></div>
 
-<!-- Manual add (collapsible) -->
-<div class="manual-section">
-  <button class="collapse-btn" onclick="toggleManual()">
-    <span id="collapseIcon">＋</span> Ajouter manuellement
-  </button>
-  <div class="collapsible" id="manualCollapse">
-    <div class="form-card">
-      <div class="quick-row">
-        <button class="quick-btn" onclick="quickAdd(5)">+5</button>
-        <button class="quick-btn" onclick="quickAdd(10)">+10</button>
-        <button class="quick-btn" onclick="quickAdd(15)">+15</button>
-        <button class="quick-btn" onclick="quickAdd(20)">+20</button>
-      </div>
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label" for="kmInput">Kilomètres</label>
-          <input type="number" class="form-input" id="kmInput" placeholder="0.0" inputmode="decimal" min="0" step="0.1">
-        </div>
-        <div class="form-group">
-          <label class="form-label" for="dateInput">Date</label>
-          <input type="date" class="form-input" id="dateInput">
-        </div>
-      </div>
-      <div class="form-row" style="margin-bottom:0">
-        <div class="form-group">
-          <label class="form-label" for="noteInput">Note</label>
-          <input type="text" class="form-input" id="noteInput" placeholder="aéroport, soirée...">
-        </div>
-      </div>
-      <button class="btn-add" onclick="addManual()">＋ Enregistrer</button>
-    </div>
-  </div>
-</div>
-
-<div class="separator"></div>
-
-<!-- Export -->
 <div class="export-section">
-  <button class="btn-export" onclick="exportCSV()">⬇ Exporter CSV → Google Sheets</button>
+  <button class="btn-export" onclick="exportCSV()">
+    <span class="btn-export-icon">⬇</span> Exporter CSV → Google Sheets
+  </button>
 </div>
 
-<!-- History -->
 <div class="list-section">
   <div class="list-header">
     <p class="section-title" style="margin-bottom:0">Historique</p>
@@ -394,76 +417,43 @@
   <div id="entriesList"></div>
 </div>
 
-<!-- Save modal -->
-<div class="modal-overlay hidden" id="saveModal">
-  <div class="modal">
-    <div class="modal-title">Trajet terminé 🎉</div>
-    <div class="modal-sub">Confirme et ajoute une note si besoin</div>
-    <div class="modal-km"><span id="modalKm">0.0</span><span class="modal-km-unit"> km</span></div>
-    <div class="modal-input-row">
-      <label class="form-label" for="modalNote">Note (optionnel)</label>
-      <input type="text" class="form-input" id="modalNote" placeholder="aéroport, centre-ville, soirée...">
-    </div>
-    <div class="modal-btns">
-      <button class="btn-modal-cancel" onclick="discardTrip()">Annuler</button>
-      <button class="btn-modal-save" onclick="saveTrip()">Enregistrer</button>
-    </div>
-  </div>
-</div>
-
 <div class="toast" id="toast"></div>
 
 <script>
-  // State
-  let entries = JSON.parse(localStorage.getItem('uberkm_v3') || '[]');
-  let tracking = false;
-  let paused = false;
-  let watchId = null;
-  let positions = [];
-  let totalDistance = 0;
-  let startTime = null;
-  let pauseStart = null;
-  let totalPausedMs = 0;
-  let durationInterval = null;
-  let pendingKm = 0;
+  let entries = JSON.parse(localStorage.getItem('uberkm_entries') || '[]');
 
-  // Utils
-  function today() { return new Date().toISOString().split('T')[0]; }
-  function formatDate(d) {
-    const [y,m,day] = d.split('-');
-    const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
-    return parseInt(day) + ' ' + months[parseInt(m)-1] + ' ' + y;
+  function today() {
+    const d = new Date();
+    return d.toISOString().split('T')[0];
   }
-  function save() { localStorage.setItem('uberkm_v3', JSON.stringify(entries)); }
+
+  function formatDate(d) {
+    const [y, m, day] = d.split('-');
+    const months = ['jan','fév','mar','avr','mai','jun','jul','aoû','sep','oct','nov','déc'];
+    return parseInt(day) + ' ' + months[parseInt(m) - 1] + ' ' + y;
+  }
+
+  function save() {
+    localStorage.setItem('uberkm_entries', JSON.stringify(entries));
+  }
 
   let toastTimer;
   function showToast(msg, type) {
     clearTimeout(toastTimer);
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className = 'toast ' + (type||'') + ' show';
-    toastTimer = setTimeout(() => { t.className = 'toast ' + (type||''); }, 2400);
-  }
-
-  // Haversine distance in km
-  function haversine(lat1, lon1, lat2, lon2) {
-    const R = 6371;
-    const dLat = (lat2 - lat1) * Math.PI / 180;
-    const dLon = (lon2 - lon1) * Math.PI / 180;
-    const a = Math.sin(dLat/2)*Math.sin(dLat/2) +
-              Math.cos(lat1*Math.PI/180)*Math.cos(lat2*Math.PI/180)*
-              Math.sin(dLon/2)*Math.sin(dLon/2);
-    return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+    t.className = 'toast ' + (type || '') + ' show';
+    toastTimer = setTimeout(() => { t.className = 'toast ' + (type || ''); }, 2200);
   }
 
   function updateStats() {
     const now = today();
-    const [y,m] = now.split('-');
-    let d=0, mo=0, tot=0;
+    const [y, m] = now.split('-');
+    let d = 0, mo = 0, tot = 0;
     entries.forEach(e => {
       tot += e.km;
       if (e.date === now) d += e.km;
-      if (e.date.startsWith(y+'-'+m)) mo += e.km;
+      if (e.date.startsWith(y + '-' + m)) mo += e.km;
     });
     document.getElementById('todayKm').innerHTML = parseFloat(d.toFixed(1)) + '<span class="stat-unit"> km</span>';
     document.getElementById('monthKm').innerHTML = parseFloat(mo.toFixed(1)) + '<span class="stat-unit"> km</span>';
@@ -472,17 +462,17 @@
 
   function renderList() {
     const list = document.getElementById('entriesList');
-    const sorted = [...entries].sort((a,b) => b.date.localeCompare(a.date) || b.id.localeCompare(a.id));
+    const sorted = [...entries].sort((a, b) => b.date.localeCompare(a.date));
     if (!sorted.length) {
-      list.innerHTML = '<div class="empty-state"><div style="font-size:40px;opacity:0.2;margin-bottom:10px">🛣️</div>Aucun trajet enregistré</div>';
+      list.innerHTML = '<div class="empty-state"><div class="empty-icon">🛣️</div>Aucun trajet enregistré</div>';
       return;
     }
     list.innerHTML = sorted.map(e => `
-      <div class="entry-item ${e.gps ? 'gps-entry' : ''}">
-        <div class="entry-icon ${e.gps ? '' : 'manual'}">${e.gps ? '📍' : '🚗'}</div>
+      <div class="entry-item">
+        <div class="entry-icon">🚗</div>
         <div class="entry-left">
           <div class="entry-note">${e.note || 'Trajet Uber'}</div>
-          <div class="entry-meta">${formatDate(e.date)}${e.duration ? ' · ' + e.duration : ''}${e.gps ? ' · GPS' : ''}</div>
+          <div class="entry-date">${formatDate(e.date)}</div>
         </div>
         <div class="entry-right">
           <div class="entry-km">${parseFloat(e.km.toFixed(1))}<span class="entry-km-unit"> km</span></div>
@@ -492,222 +482,88 @@
     `).join('');
   }
 
-  // GPS Tracking
-  function startTracking() {
-    if (!navigator.geolocation) {
-      showToast('GPS non disponible sur cet appareil', 'red'); return;
-    }
-    tracking = true; paused = false;
-    positions = []; totalDistance = 0; totalPausedMs = 0;
-    startTime = Date.now();
-
-    document.getElementById('btnStart').style.display = 'none';
-    document.getElementById('btnActive').style.display = 'block';
-    document.getElementById('wakeWarning').style.display = 'flex';
-    document.getElementById('gpsCard').className = 'gps-card active';
-    document.getElementById('gpsDot').className = 'gps-dot active';
-    document.getElementById('gpsStatusText').textContent = 'Acquisition GPS...';
-    document.getElementById('headerSub').textContent = 'Trajet en cours';
-
-    watchId = navigator.geolocation.watchPosition(onPosition, onGpsError, {
-      enableHighAccuracy: true,
-      maximumAge: 0,
-      timeout: 10000
-    });
-
-    durationInterval = setInterval(updateDuration, 1000);
-    showToast('GPS activé — bonne route !', 'green');
-  }
-
-  function onPosition(pos) {
-    if (paused) return;
-    const { latitude, longitude, speed } = pos.coords;
-    const pt = { lat: latitude, lon: longitude, t: Date.now() };
-
-    if (positions.length > 0) {
-      const prev = positions[positions.length - 1];
-      const dist = haversine(prev.lat, prev.lon, pt.lat, pt.lon);
-      // Filter out GPS noise (ignore jumps > 500m between points)
-      if (dist < 0.5) totalDistance += dist;
-    }
-    positions.push(pt);
-
-    document.getElementById('gpsKm').innerHTML = totalDistance.toFixed(2) + '<span class="gps-km-unit">km</span>';
-    document.getElementById('gpsPoints').textContent = positions.length;
-    document.getElementById('gpsStatusText').textContent = 'GPS actif · précision ' + Math.round(pos.coords.accuracy) + 'm';
-
-    if (speed !== null && speed >= 0) {
-      document.getElementById('gpsSpeed').textContent = Math.round(speed * 3.6) + ' km/h';
-    }
-  }
-
-  function onGpsError(err) {
-    document.getElementById('gpsDot').className = 'gps-dot error';
-    document.getElementById('gpsStatusText').textContent = 'Erreur GPS : ' + err.message;
-    showToast('Erreur GPS — vérifie les permissions', 'red');
-  }
-
-  function updateDuration() {
-    if (!startTime) return;
-    const elapsed = Date.now() - startTime - totalPausedMs;
-    const s = Math.floor(elapsed / 1000);
-    const m = Math.floor(s / 60);
-    const h = Math.floor(m / 60);
-    const str = h > 0
-      ? h + 'h' + String(m%60).padStart(2,'0') + 'm'
-      : String(m).padStart(2,'0') + ':' + String(s%60).padStart(2,'0');
-    document.getElementById('gpsDuration').textContent = str;
-  }
-
-  function togglePause() {
-    if (!paused) {
-      paused = true;
-      pauseStart = Date.now();
-      document.getElementById('btnPauseResume').innerHTML = '▶ Reprendre';
-      document.getElementById('btnPauseResume').className = 'btn-resume';
-      document.getElementById('gpsCard').className = 'gps-card paused';
-      document.getElementById('gpsDot').className = 'gps-dot paused';
-      document.getElementById('gpsStatusText').textContent = 'En pause';
-      showToast('Trajet en pause', 'amber');
-    } else {
-      paused = false;
-      totalPausedMs += Date.now() - pauseStart;
-      document.getElementById('btnPauseResume').innerHTML = '⏸ Pause';
-      document.getElementById('btnPauseResume').className = 'btn-pause';
-      document.getElementById('gpsCard').className = 'gps-card active';
-      document.getElementById('gpsDot').className = 'gps-dot active';
-      document.getElementById('gpsStatusText').textContent = 'GPS actif';
-      showToast('Trajet repris', 'green');
-    }
-  }
-
-  function stopTracking() {
-    if (watchId !== null) { navigator.geolocation.clearWatch(watchId); watchId = null; }
-    clearInterval(durationInterval);
-    tracking = false;
-
-    pendingKm = parseFloat(totalDistance.toFixed(2));
-
-    // Show save modal
-    document.getElementById('modalKm').textContent = pendingKm.toFixed(2);
-    document.getElementById('modalNote').value = '';
-    document.getElementById('saveModal').classList.remove('hidden');
-
-    // Reset UI
-    document.getElementById('gpsCard').className = 'gps-card';
-    document.getElementById('gpsDot').className = 'gps-dot';
-    document.getElementById('gpsStatusText').textContent = 'Trajet terminé';
-    document.getElementById('btnActive').style.display = 'none';
-    document.getElementById('wakeWarning').style.display = 'none';
-    document.getElementById('headerSub').textContent = 'Prêt à démarrer';
-  }
-
-  function saveTrip() {
-    const note = document.getElementById('modalNote').value.trim();
-    const elapsed = Date.now() - startTime - totalPausedMs;
-    const s = Math.floor(elapsed / 1000);
-    const m = Math.floor(s / 60);
-    const h = Math.floor(m / 60);
-    const duration = h > 0
-      ? h + 'h' + String(m%60).padStart(2,'0') + 'm'
-      : m + 'min';
-
-    entries.push({
-      id: Date.now().toString(),
-      km: pendingKm,
-      date: today(),
-      note: note || 'Trajet Uber',
-      gps: true,
-      duration
-    });
-    save();
-    updateStats();
-    renderList();
-    resetGpsDisplay();
-    document.getElementById('saveModal').classList.add('hidden');
-    showToast(pendingKm.toFixed(1) + ' km enregistrés ✓', 'green');
-  }
-
-  function discardTrip() {
-    document.getElementById('saveModal').classList.add('hidden');
-    resetGpsDisplay();
-    showToast('Trajet annulé');
-  }
-
-  function resetGpsDisplay() {
-    document.getElementById('gpsKm').innerHTML = '0.0<span class="gps-km-unit">km</span>';
-    document.getElementById('gpsDuration').textContent = '--:--';
-    document.getElementById('gpsSpeed').textContent = '-- km/h';
-    document.getElementById('gpsPoints').textContent = '0';
-    document.getElementById('gpsStatusText').textContent = 'Appuie sur Démarrer';
-    document.getElementById('btnStart').style.display = 'block';
-    document.getElementById('btnPauseResume').innerHTML = '⏸ Pause';
-    document.getElementById('btnPauseResume').className = 'btn-pause';
-    startTime = null; positions = []; totalDistance = 0;
-  }
-
-  // Manual add
-  function addManual() {
+  function addEntry() {
     const km = parseFloat(document.getElementById('kmInput').value);
     const date = document.getElementById('dateInput').value;
     const note = document.getElementById('noteInput').value.trim();
+
     if (!km || km <= 0) { showToast('Entre un nombre de km valide', 'red'); return; }
     if (!date) { showToast('Sélectionne une date', 'red'); return; }
-    entries.push({ id: Date.now().toString(), km, date, note, gps: false });
+
+    entries.push({ id: Date.now().toString(), km, date, note });
     save();
+
     document.getElementById('kmInput').value = '';
     document.getElementById('noteInput').value = '';
-    updateStats(); renderList();
+    document.getElementById('dateInput').value = today();
+
+    updateStats();
+    renderList();
     showToast(parseFloat(km.toFixed(1)) + ' km enregistrés ✓', 'green');
   }
 
   function quickAdd(km) {
     const date = document.getElementById('dateInput').value || today();
-    entries.push({ id: Date.now().toString(), km, date, note: '', gps: false });
-    save(); updateStats(); renderList();
+    entries.push({ id: Date.now().toString(), km, date, note: '' });
+    save();
+    updateStats();
+    renderList();
     showToast('+' + km + ' km ajoutés ✓', 'green');
   }
 
   function deleteEntry(id) {
     entries = entries.filter(e => e.id !== id);
-    save(); updateStats(); renderList();
+    save();
+    updateStats();
+    renderList();
   }
 
   function clearAll() {
     if (!entries.length) return;
-    if (confirm('Effacer tous les trajets ? Irréversible.')) {
-      entries = []; save(); updateStats(); renderList();
+    if (confirm('Effacer tous les trajets ? Cette action est irréversible.')) {
+      entries = [];
+      save();
+      updateStats();
+      renderList();
       showToast('Historique effacé');
     }
   }
 
   function exportCSV() {
     if (!entries.length) { showToast('Aucun trajet à exporter', 'red'); return; }
-    const sorted = [...entries].sort((a,b) => a.date.localeCompare(b.date));
-    const header = 'Date,Description,Catégorie,Kilométrage,Durée,Source\n';
-    const rows = sorted.map(e =>
-      `${e.date},${e.note||'Trajet Uber'},Transport,${e.km.toFixed(1)},${e.duration||''},${e.gps?'GPS':'Manuel'}`
-    ).join('\n');
-    const blob = new Blob(['\uFEFF'+header+rows], { type: 'text/csv;charset=utf-8;' });
+    const sorted = [...entries].sort((a, b) => a.date.localeCompare(b.date));
+    const header = 'Date,Description,Catégorie,Kilométrage\n';
+    const rows = sorted.map(e => `${e.date},${e.note || 'Trajet Uber'},Transport,${e.km.toFixed(1)}`).join('\n');
+    const blob = new Blob(['\uFEFF' + header + rows], { type: 'text/csv;charset=utf-8;' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
-    a.href = url; a.download = 'uber-km-'+today()+'.csv';
-    document.body.appendChild(a); a.click();
-    document.body.removeChild(a); URL.revokeObjectURL(url);
+    a.href = url;
+    a.download = 'uber-km-' + today() + '.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
     showToast('CSV exporté ✓', 'green');
   }
 
-  function toggleManual() {
-    const c = document.getElementById('manualCollapse');
-    const icon = document.getElementById('collapseIcon');
-    c.classList.toggle('open');
-    icon.textContent = c.classList.contains('open') ? '−' : '＋';
+  function dismissBanner() {
+    document.getElementById('installBanner').style.display = 'none';
+    localStorage.setItem('uberkm_banner_dismissed', '1');
   }
 
   // Init
   const d = new Date();
   document.getElementById('dateInput').value = today();
-  document.getElementById('headerDate').textContent = d.toLocaleDateString('fr-CA', { weekday:'short', day:'numeric', month:'short' });
+  document.getElementById('headerDate').textContent = d.toLocaleDateString('fr-CA', { weekday: 'short', day: 'numeric', month: 'short' });
+
+  // Show install banner once on Safari iOS
+  const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+  const isStandalone = window.navigator.standalone;
+  const bannerDismissed = localStorage.getItem('uberkm_banner_dismissed');
+  if (isIOS && !isStandalone && !bannerDismissed) {
+    document.getElementById('installBanner').style.display = 'flex';
+  }
+
   updateStats();
   renderList();
 </script>
